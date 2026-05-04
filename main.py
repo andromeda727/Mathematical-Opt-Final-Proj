@@ -18,7 +18,7 @@ SPARC_COLS = ['Rad', 'Vobs', 'errV', 'Vgas', 'Vdisk', 'Vbul', 'SBdisk', 'SBbul']
 # ===================================================== MODIFIABLE PARAMS ===================================================== #
 
 GALAXY_NAME = 'UGC2885'
-PROFILE_TYPE = 'DC14'  # Options: 'NFW', 'Burkert', 'Einasto', 'DC14', 'MOND'
+PROFILE_TYPE = 'NFW'  # Options: 'NFW', 'Burkert', 'Einasto', 'DC14', 'MOND'
 OPT_ALG = 'BFGS'  # Options: 'BFGS', 'TRF', 'MCMC', 'DE', 'PSO', 'BH'
 LOSS_FUNC = 'chi_squared'  # Options: 'chi_squared', 'huber', 'cauchy', 'ODR', 'bayesian'
 
@@ -154,6 +154,8 @@ def loss_function(vars, r, vgas, vdisk, vbul, v_obs, sigma):
 if has_bulge:
     # Initial guess for the parameters: [Ydisk, Ybul, rho_s, r_s]
     initial_guess = [0.5, 0.7, 0.01, 10.0]
+    # initial_guess = [0.1, 0.1, 1e-4, 0.1]  # Start at the lower bounds to see if we still find a good fit.
+    # initial_guess = [0.8, 1.2, 1.0, 100.0]  # Start at the upper bounds to see if we still find a good fit.
     # Bounds (min, max)
     physical_bounds = [(0.1, 0.8),  # Ydisk
             (0.1, 1.2),  # Ybul
